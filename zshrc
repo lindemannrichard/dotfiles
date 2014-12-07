@@ -1,12 +1,3 @@
-#
-# dotzsh : https://github.com/dotphiles/dotzsh
-#
-# Sets dotzsh options.
-#
-# Authors:
-#   Ben O'Hara <bohara@gmail.com>
-#
-
 # Set the Zsh modules to load (man zshmodules).
 zstyle ':dotzsh:load' zmodule 'stat'
 

@@ -1,6 +1,5 @@
 " on the first run, please do git clone https://github.com/Shougo/neobundle.vim ~/.vim/bundle/neobundle.vim
 " compile ycm, compile cmatcher
-
 let maplocalleader="'"
 
 set nocompatible
@@ -24,16 +23,15 @@ NeoBundle 'Shougo/vimproc', {
 
 " NeoBundle 'hkjels/natural.vim'
 NeoBundle 'tpope/vim-sensible'
-  silent! call mkdir(expand('~/.cache//'))
-  silent! call mkdir(expand('~/.cache/vim//'))
+  silent! call mkdir(expand('~/.vim/cache/'))
 
-  let &directory = expand('~/.cache/vim/swap//')
+  let &directory = expand('~/.vim/cache/swap//')
   silent! call mkdir(&directory)
 
-  let &backupdir = expand('~/.cache/vim/backup//')
+  let &backupdir = expand('~/.vim/cache/backup//')
   silent! call mkdir(&backupdir)
 
-  let &undodir = expand('~/.cache/vim/undo//')
+  let &undodir = expand('~/.vim/cache/undo//')
   silent! call mkdir(&undodir)
 
   set undofile
@@ -75,7 +73,7 @@ NeoBundle 'tpope/vim-sensible'
   set fileformats=unix,dos,mac 
   set formatoptions+=jt
   set guioptions-=T guioptions-=e guioptions-=L guioptions-=r guioptions+=c
-  set viminfo='50,<100,s100,:100,!,n~/.cache/viminfo
+  set viminfo='50,<100,s100,:100,!,n~/.vim/cache/viminfo
   set shell=zsh
 
   set modeline                " Allow vim options to be embedded in files;
@@ -125,7 +123,7 @@ NeoBundle 'JazzCore/ctrlp-cmatcher'
 
 NeoBundle 'kien/ctrlp.vim'
   let g:ctrlp_map = ""
-  let g:ctrlp_cache_dir = '~/.cache/vim/ctrp'
+  let g:ctrlp_cache_dir = '~/.vim/cache/ctrp'
   let g:ctrlp_match_window = 'bottom,order:top,min:1,max:10,results:10'  
   let g:ctrlp_working_path_mode = 'rc' " search for nearest ancestor like .git, .hg, and the directory of the current file
   let g:ctrlp_by_filename = 0
@@ -283,7 +281,7 @@ function! s:SetProperTagsFile()
   if len(projroot)
     let &tags = projroot . "/.git/tags"
   else
-    let &tags = expand("~/.cache/vim/tags")
+    let &tags = expand("~/.vim/cache/tags")
   endif
 endfunction
 autocmd BufWinEnter * call s:SetProperTagsFile()
@@ -298,7 +296,6 @@ NeoBundle 'xolox/vim-notes'
 
 " Completions
 NeoBundle 'Valloric/YouCompleteMe'
-  let g:ycm_key_list_select_completion = ['<Down>']
   let g:ycm_min_num_of_chars_for_completion = 1
   let g:ycm_autoclose_preview_window_after_completion=1
   let g:ycm_path_to_python_interpreter = '/usr/bin/python'
@@ -307,29 +304,10 @@ NeoBundle 'Valloric/YouCompleteMe'
   nnoremap <leader>g :YcmCompleter GoToDefinitionElseDeclaration<CR>
 
 NeoBundle 'SirVer/ultisnips'
-  let g:UltiSnipsExpandTrigger="<tab>"
-  let g:UltiSnipsJumpForwardTrigger="<c-j>"
-  let g:UltiSnipsListSnippets="<c-tab>"
+  let g:UltiSnipsExpandTrigger="<c-j>"
   let g:UltiSnipsSnippetDirectories = ["UltiSnips", "ultisnips-snippets"]
 
-  au BufEnter * exec "inoremap <silent> " . g:UltiSnipsExpandTrigger . " <C-R>=g:UltiSnips_Complete()<cr>"
- 
-  function! g:UltiSnips_Complete()
-      call UltiSnips#ExpandSnippet()
-      if g:ulti_expand_res == 0
-          if pumvisible()
-              return "\<C-n>"
-          else
-              call UltiSnips#JumpForwards()
-              if g:ulti_jump_forwards_res == 0
-                return "\<TAB>"
-              endif
-          endif
-      endif
-      return ""
-  endfunction
-
-" LightLine
+  " LightLine
 NeoBundle "itchyny/lightline.vim"
 
 let g:lightline = {
